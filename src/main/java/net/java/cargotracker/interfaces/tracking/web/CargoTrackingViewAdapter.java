@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import static net.java.cargotracker.application.util.LocationUtil.getCoordinatesForLocation;
 import net.java.cargotracker.domain.model.cargo.Cargo;
 import net.java.cargotracker.domain.model.cargo.Delivery;
 import net.java.cargotracker.domain.model.cargo.HandlingActivity;
 import net.java.cargotracker.domain.model.handling.HandlingEvent;
 import net.java.cargotracker.domain.model.location.Location;
 import net.java.cargotracker.domain.model.voyage.Voyage;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  * View adapter for displaying a cargo in a tracking context.
@@ -53,7 +58,7 @@ public class CargoTrackingViewAdapter {
     }
 
     /**
-     * @return A translated string describing the cargo status.
+     * @return A readable string describing the cargo status.
      */
     public String getStatusText() {
         Delivery delivery = cargo.getDelivery();
@@ -118,6 +123,41 @@ public class CargoTrackingViewAdapter {
      */
     public List<HandlingEventViewAdapter> getEvents() {
         return Collections.unmodifiableList(events);
+    }
+
+    /**
+     * @return The model for Google maps showing origin, destination 
+     * and last known location.
+     */
+    public MapModel getMapModel() {
+        MapModel mapModel = new DefaultMapModel();
+
+        String origin = cargo.getOrigin().getUnLocode().getIdString();
+        String destination = cargo.getRouteSpecification().getDestination()
+                .getUnLocode().getIdString();
+        String lastKnownLocation = cargo.getDelivery().getLastKnownLocation()
+                .getUnLocode().getIdString();
+
+        if (origin != null && !origin.isEmpty()) {
+            mapModel.addOverlay(new Marker(getCoordinatesForLocation(origin), "Origin: " + getOrigin()));
+        }
+
+        if (destination != null && !destination.isEmpty()) {
+            mapModel.addOverlay(new Marker(getCoordinatesForLocation(destination), "Final destination: " + getDestination()));
+        }
+
+        if (lastKnownLocation != null && !lastKnownLocation.isEmpty() && !lastKnownLocation.toUpperCase().contains("XXXX")) {
+            mapModel.addOverlay(new Marker(getCoordinatesForLocation(lastKnownLocation),
+                    "Last known location: " + getDisplayText(cargo.getDelivery().getLastKnownLocation())));
+        }
+
+        return mapModel;
+    }
+
+    public String getDestinationCoordinates() {
+        LatLng coordinates = getCoordinatesForLocation(cargo
+                .getRouteSpecification().getDestination().getUnLocode().getIdString());
+        return "" + coordinates.getLat() + "," + coordinates.getLng();
     }
 
     /**

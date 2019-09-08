@@ -34,6 +34,8 @@ public class RealtimeCargoTrackingService {
 
     @OnOpen
     public void onOpen(final Session session) {
+        // Infinite by default on GlassFish. We need this principally for WebLogic.
+        session.setMaxIdleTimeout(5 * 60 * 1000); 
         sessions.add(session);
     }
 

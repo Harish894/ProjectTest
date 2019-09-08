@@ -15,12 +15,21 @@ company Citerus. The cargo example actually comes from Eric Evans'
 seminal book on DDD. The original application is written in Spring,
 Hibernate and Jetty whereas this application is built entirely on Java
 EE 7 and GlassFish 4.
+The project demonstrates how you can develop applications with the Java EE 
+platform using widely adopted architectural best practices like Domain-Driven 
+Design (DDD), TDD and agile. The project is directly based on the well known 
+original Java DDD sample (http://dddsample.sourceforge.net) application 
+developed by DDD pioneer Eric Evans' company Domain Language and the Swedish 
+software consulting company Citerus. The cargo example actually comes from 
+Eric Evans' seminal book on DDD. The original application is written in Spring,
+Hibernate and Jetty whereas the application is build entirely on Java EE 7 and
+GlassFish 4.  It also supports WildFly 8.
 
 The application is an end-to-end system for keeping track of shipping cargo. It 
 has several interfaces described in the following sections.
 
 For further details on the project, please visit:
-http://cargotracker.java.net
+https://github.com/javaee/cargotracker
 
 Getting Started
 ===============
@@ -33,6 +42,7 @@ The simplest steps are the following (no IDE required):
 * Get the project source code: https://java.net/projects/cargotracker/downloads
 * As long as you have Maven set up, navigate to the project source root and 
   type: mvn package cargo:run
+* To run with WildFly 8x, type: mvn -Pwildfly package cargo:run
 * Go to http://localhost:8080/cargo-tracker
 
 To set up in NetBeans, follow these steps:
@@ -194,5 +204,10 @@ The project mailing lists are here:
 https://java.net/projects/cargotracker/lists The JIRA issue tracker is
 here: http://java.net/jira/browse/CARGOTRACKER
 
+
 You can also send an email to reza.rahman@oracle.com with any questions,
 concerns or suggestions.
+
+You can also send an email to reza.rahman@oracle.com with any questions, 
+concerns or suggestions.
+

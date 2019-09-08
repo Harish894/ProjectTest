@@ -1,6 +1,7 @@
 package net.java.cargotracker.infrastructure.persistence.jpa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -63,5 +64,19 @@ public class JpaCargoRepository implements CargoRepository, Serializable {
     public List<Cargo> findAll() {
         return entityManager.createNamedQuery("Cargo.findAll", Cargo.class)
                 .getResultList();
+    }
+
+    @Override
+    public List<TrackingId> getAllTrackingIds() {
+        List<TrackingId> trackingIds = new ArrayList<>();
+
+        try {
+            trackingIds = entityManager.createNamedQuery(
+                    "Cargo.getAllTrackingIds", TrackingId.class).getResultList();
+        } catch (NoResultException e) {
+            logger.log(Level.FINE, "Unable to get all tracking IDs", e);
+        }
+
+        return trackingIds;
     }
 }

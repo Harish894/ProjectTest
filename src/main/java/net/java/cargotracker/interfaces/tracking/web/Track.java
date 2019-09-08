@@ -21,9 +21,10 @@ import net.java.cargotracker.domain.model.handling.HandlingEventRepository;
  * An adapter class, designed for the tracking use case, is used to wrap the
  * domain model to make it easier to work with in a web page rendering context.
  * We do not want to apply view rendering constraints to the design of our
- * domain model, and the adapter helps us shield the domain model classes.
+ * domain model and the adapter helps us shield the domain model classes where
+ * needed.
  * <p/>
- * In some very simplistic cases, it may be fine to not use even an adapter.
+ * In some very simplistic cases, it is fine to not use even an adapter.
  */
 @Named
 @ViewScoped
@@ -58,6 +59,14 @@ public class Track implements Serializable {
 
     public void setCargo(CargoTrackingViewAdapter cargo) {
         this.cargo = cargo;
+    }
+
+    /**
+     * @param query The query parameter is required by PrimeFaces but we don't 
+     * use it.
+     */
+    public List<TrackingId> getTrackingIds(String query) {
+        return cargoRepository.getAllTrackingIds();
     }
 
     public void onTrackById() {
