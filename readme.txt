@@ -177,3 +177,4 @@ The JIRA issue tracker is here: http://java.net/jira/browse/CARGOTRACKER
 You can also send an email to reza.rahman@oracle.com with any questions, 
 concerns or suggestions.
 
+Adding one line to check automatic build trigger in jenkins
