@@ -1,5 +1,7 @@
 pipeline{
 agent any
+	tool {
+		maven 'apache-maven-3.6.2'
 stages{
 stage('SCM Checkout'){
       steps{      
@@ -9,8 +11,7 @@ stage('SCM Checkout'){
 }
 	stage('Compile-Package'){
 	steps{
-
-		def mvnHome = tool name: 'maven3', type: 'maven'
+		
 		sh "mvn package"		
 	}
 	}
