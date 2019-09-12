@@ -1,16 +1,16 @@
 pipline{
-agent {label 'myfirstpipline'}
+agent any
 stages{
 stage('SCM Checkout'){
       steps{      
-	    git 'https://github.com/siraj09/maven_repo'
+	    git 'https://github.com/Harish894/ProjectTest.git'
 	
 	}
 }
 	stage('Compile-Package'){
 	steps{
 
-		def mvnHome = tool name: 'maven', type: 'maven'
+		def mvnHome = tool name: 'maven3', type: 'maven'
 		sh "mvn package"		
 	}
 	}
